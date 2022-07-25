@@ -5,17 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserProvider } from "./context/UserContext";
 import { SearchProvider } from "./context/SearchContext";
-import { FavoritesProvider } from "./context/FavoritesContext";
+import { FavProvider } from "./context/FavoritesContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <FavoritesProvider>
+  <FavProvider>
     <SearchProvider>
       <UserProvider>
         <App />
       </UserProvider>
     </SearchProvider>
-  </FavoritesProvider>
+  </FavProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

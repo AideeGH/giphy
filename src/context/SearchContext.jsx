@@ -1,16 +1,12 @@
-import React, {useState, createContext} from "react";
+import React, { useState } from "react";
 
-export const SearchContext = createContext(null);
+export const SearchResults = React.createContext(null);
+export function SearchProvider(props) {
+  const [searchResults, setSearchResults] = useState([]);
 
-export function SearchProvider(props){
-    const [searchResults, setSearchresults] = useState([]);
-
-
-
-    return (
-        <SearchContext.Provider value={{searchResults, setSearchresults}}>
-            {props.children}
-        </SearchContext.Provider>
-        
-    );
+  return (
+    <SearchResults.Provider value={{ searchResults, setSearchResults }}>
+      {props.children}
+    </SearchResults.Provider>
+  );
 }

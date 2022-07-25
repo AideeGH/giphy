@@ -1,30 +1,26 @@
-import React, {useState, createContext, useCallback} from "react";
+import React, { useState, useCallback } from "react";
 
-export const FavoritesContext = createContext(null);
+export const FavContext = React.createContext(null);
+export function FavProvider(props) {
+  const [favorites, setFavorites] = useState([]);
 
-export function FavoritesProvider(props){
-    const [favorites, setFavorites] = useState([]);
-
-    const add = useCallback((gif) => {
-        setFavorites(curr => [...curr, gif]);
+  const addFav = useCallback(
+    (gifId) => setFavorites((curr) => [gifId, ...curr]),
+    [setFavorites]
+  );
+  const removeFav = useCallback(
+    (gifId) => {
+      setFavorites((curr) => curr.filter((val) => val.gif_id !== gifId));
     },
     [setFavorites]
-    );
+  );
+  const clearFav = useCallback(() => {
+    setFavorites([]);
+  }, [setFavorites]);
 
-    const remove = useCallback((id) => {
-        setFavorites(curr=> curr.filter(value=> value.gif_id !== id));
-
-    }, [setFavorites]);
-
-    const clear = useCallback(() => {
-        setFavorites([]);
-    }, [setFavorites]);
-
-
-    return (
-        <FavoritesContext.Provider value={{favorites, add, remove, clear}}>
-            {props.children}
-        </FavoritesContext.Provider>
-        
-    );
+  return (
+    <FavContext.Provider value={{ addFav, removeFav, clearFav, favorites }}>
+      {props.children}
+    </FavContext.Provider>
+  );
 }
